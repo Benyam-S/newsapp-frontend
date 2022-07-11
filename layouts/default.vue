@@ -1,7 +1,13 @@
 <template>
-    <div class="container">
-        <AppHeader />
-        <Nuxt />
+    <div>
+        <div class="container">
+            <AppHeader />
+            <Nuxt />
+        </div>
+
+        <div class="mt-5">
+            <EmailForm></EmailForm>
+        </div>
     </div>
 </template>
 

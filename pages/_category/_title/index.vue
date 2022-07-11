@@ -41,8 +41,13 @@ export default {
             if (result.data && result.data.status) {
                 this.article = result.data.article;
             }
-        }).catch((result) => {
-            console.log(result);
+        }).catch((err) => {
+            // Redirecting to 404 page if bad request
+            if (err.response && err.response.status == 400) {
+                this.$nuxt.error({ statusCode: 404, message: (err.response.data.error) })
+            } else {
+                this.$nuxt.error({ statusCode: 404, message: err.message })
+            }
         });
     },
 }

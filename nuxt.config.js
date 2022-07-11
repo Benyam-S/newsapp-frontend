@@ -34,7 +34,7 @@ export default {
   fontawesome: {
     component: "fa",
     icons: {
-      solid: ["faUpRightFromSquare"], // loading only this icon
+      solid: ["faUpRightFromSquare", "faCircleCheck"], // loading only this icon
       brands: [],
     },
   },
