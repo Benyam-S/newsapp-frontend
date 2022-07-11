@@ -56,14 +56,18 @@ import Paginate from 'vuejs-paginate';
 export default {
   name: "IndexPage",
   head() {
+    let path = `${config.baseURL}${this.$route.fullPath}`
+
     return {
       title: "Welcome to News App",
       meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: "Place to get your news"
-        }
+        { hid: 'description', name: 'description', content: "Best news outlet here for free." },
+        { hid: 'og:title', property: 'og:title', content: "News Articles" },
+        { hid: 'og:url', property: 'og:url', content: path },
+        { hid: 'og:description', property: 'og:description', content: "Best news outlet here for free." },
+      ],
+      link: [
+        { hid: "canonical", rel: "canonical", href: path },
       ]
     };
   },
@@ -88,7 +92,7 @@ export default {
   created() {
 
     // Getting all the categories
-    var url = `${config.baseURL}/categories`;
+    var url = `${config.apiBaseURL}/categories`;
     axios.get(url).then((result) => {
       if (result.data && result.data.status) {
         this.categories = result.data.categories;
@@ -113,7 +117,7 @@ export default {
     searchArticles(text) {
       this.searchKey = text ?? this.searchKey;
 
-      var url = `${config.baseURL}/articles/${this.category}/search` +
+      var url = `${config.apiBaseURL}/articles/${this.category}/search` +
         `?q=${this.searchKey}&page=${this.currentPage}&sortBy=${this.sortBy}`;
       const response = axios.get(url);
       response.then((result) => {
@@ -148,7 +152,7 @@ export default {
 
     // fetchByCategory fetches all the articles based on the given category and sorting
     fetchByCategory() {
-      var url = `${config.baseURL}/articles/${this.category}` +
+      var url = `${config.apiBaseURL}/articles/${this.category}` +
         `?page=${this.currentPage}&sortBy=${this.sortBy}`;
       const response = axios.get(url);
       response.then((result) => {

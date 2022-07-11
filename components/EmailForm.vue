@@ -78,7 +78,7 @@ export default {
 
     created() {
         // Getting all the categories
-        var url = `${config.baseURL}/categories`;
+        var url = `${config.apiBaseURL}/categories`;
         axios.get(url).then((result) => {
             if (result.data && result.data.status) {
                 this.categories = result.data.categories;
@@ -131,17 +131,14 @@ export default {
             if (this.handleValidateInput()) {
                 this.status = "loading";
 
-                var url = `${config.baseURL}/service/send_mail`;
+                var url = `${config.apiBaseURL}/service/send_mail`;
                 const response = axios.post(url, {
                     name: this.name,
                     email: this.email,
                 });
                 response.then((result) => {
                     this.status = "active";
-
-                    if (result.data && result.data.status) {
-                        this.requestSuccess = true
-                    }
+                    this.requestSuccess = true
                 }).catch((result) => {
                     this.status = "active";
 

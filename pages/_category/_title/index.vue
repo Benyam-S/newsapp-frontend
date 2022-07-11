@@ -25,17 +25,35 @@ import axios from 'axios';
 import config from '../../../config/config';
 
 export default {
+    head() {
+        let path = `${config.baseURL}${this.$route.fullPath}`
+
+        return {
+            title: this.article.title,
+            meta: [
+                { hid: 'description', name: 'description', content: this.article.description },
+                { hid: 'og:title', property: 'og:title', content: this.article.title },
+                { hid: 'og:url', property: 'og:url', content: path },
+                { hid: 'og:description', property: 'og:description', content: this.article.description },
+                { hid: 'og:image', property: 'og:image', content: this.article.urlToImage },
+            ],
+            link: [
+                { hid: "canonical", rel: "canonical", href: path },
+            ]
+        };
+    },
+
     data() {
         return {
             article: {},
         }
     },
+
     components: { AppHeader },
     created() {
-
         let title = this.$route.params.title;
         let category = this.$route.params.category;
-        let url = `${config.baseURL}/articles/${category}/${title}`;
+        let url = `${config.apiBaseURL}/articles/${category}/${title}`;
         const response = axios.get(url);
         response.then((result) => {
             if (result.data && result.data.status) {
