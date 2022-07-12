@@ -135,6 +135,7 @@ export default {
                 const response = axios.post(url, {
                     name: this.name,
                     email: this.email,
+                    category: this.category,
                 });
                 response.then((result) => {
                     this.status = "active";
