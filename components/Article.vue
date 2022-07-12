@@ -17,7 +17,6 @@
             <p class="category" v-on:click="onCategory"> {{ article.category }}</p>
         </div>
     </div>
-
 </template>
 
 <script>
